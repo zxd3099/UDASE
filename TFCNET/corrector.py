@@ -15,7 +15,7 @@ from TFConversion import TF_conversion, FT_conversion
 class Corrector(nn.Module):
     def __init__(self,
                  in_channels: int = 6,
-                 emb_size: int = 64,
+                 emb_size: int = 128,
                  out_channels: int = 4,
                  repeat_time: int = 8):
         super(Corrector, self).__init__()
@@ -24,10 +24,10 @@ class Corrector(nn.Module):
         self.dense_block = DenseBlock(emb_size, emb_size)
         self.layers = self.make_layers(repeat_time, emb_size)
 
-    def make_layers(self, repeat_time, emb_size=64):
+    def make_layers(self, repeat_time, emb_size=128):
         layers = []
         for i in range(repeat_time):
-            layers.append(TFC_Block())
+            layers.append(TFC_Block(emb_size, emb_size))
             layers.append(FT_conversion())
             layers.append(TFC_Block(hidden_size=emb_size//2, embedding_dim=emb_size//2))
             layers.append(TF_conversion())
