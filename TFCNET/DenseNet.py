@@ -43,15 +43,15 @@ class DenseBlock(nn.Module):
     The dilated dense block consists of 4 layers of 2-D convolution with dense connection\
     """
     def __init__(self,
-                 in_channels: int = 64,
-                 out_channels: int = 64,
+                 in_channels: int = 128,
+                 out_channels: int = 128,
                  num_layers: int = 4,
                  dilation_rates=[1, 2, 4, 8]):
         super(DenseBlock, self).__init__()
         assert len(dilation_rates) == num_layers, "The num of dilataion rates must equal num_layers"
         self.layer = self.make_layer(in_channels, out_channels, num_layers, dilation_rates)
 
-    def make_layer(self, in_channels, out_channels, nb_layers, stride, padding, dilation_rates):
+    def make_layer(self, in_channels, out_channels, nb_layers, dilation_rates):
         layers = []
         for i in range(nb_layers):
             if i == nb_layers - 1:
