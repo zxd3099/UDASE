@@ -24,7 +24,9 @@ class FT_conversion(nn.Module):
         """
         y_i, y_r = torch.split(x, split_size_or_sections=2, dim=-1)
         y_c = torch.complex(y_r, y_i)
-        pass
+        y_conj = torch.conj(y_c)
+        y = torch.cat([y_c, y_conj], dim=1)
+        return torch.fft.ifft(y, dim=1)
 
 
 class TF_conversion(nn.Module):
@@ -40,4 +42,5 @@ class TF_conversion(nn.Module):
         :param x: [B, (2F-1), T, C/2]
         :return: [B, F, T, C]
         """
-        pass
+        y = torch.fft.fft(x)
+        return torch.cat([x.imag, x.real], dim=-1)
