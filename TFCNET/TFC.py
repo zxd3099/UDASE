@@ -14,7 +14,7 @@ from torch.nn import Parameter
 
 
 class PositionalEncoding(nn.Module):
-    def __init__(self, d_model=64, dropout=0.1, max_len=5000):
+    def __init__(self, d_model, dropout=0.1, max_len=5000):
         super(PositionalEncoding, self).__init__()
         self.dropout = nn.Dropout(p=dropout)
         pe = torch.zeros(max_len, d_model)  # [max_len, d_model]
@@ -36,8 +36,8 @@ class PositionalEncoding(nn.Module):
 
 class TFC_Block(nn.Module):
     def __init__(self,
-                 hidden_size: int = 64,
-                 embedding_dim: int = 64,
+                 hidden_size: int,
+                 embedding_dim: int,
                  heads: int = 4):
         super(TFC_Block, self).__init__()
         self.hidden_size = hidden_size
