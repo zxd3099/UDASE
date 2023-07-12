@@ -6,12 +6,12 @@
 @time: 2023-06-30 21:05
 """
 import torch
-import torch.nn as nn
+from MSF import MultiScaleBlock
 
 
-a = torch.rand([1, 3, 4, 5])
-b = torch.fft.ifft(a, dim=1)
-print(a.shape)
-print(b.shape)
-print(a)
-print(b)
+a = torch.randn(1, 257, 247, 2)
+b = torch.randn(1, 4097, 12, 2)
+
+model = MultiScaleBlock()
+c = model(a, b)
+print(c.shape)
