@@ -67,7 +67,7 @@ class TFC_Block(nn.Module):
 
         # [F, BT, C] -> [T, BF, C]
         x2 = output.view(input.shape[2], -1, input.shape[3])
-        x3 = x2 + self.pos_embedding(x2)
+        x3 = self.pos_embedding(x2)
         query = F.linear(x3, self.q_proj_weight)
         key = F.linear(x3, self.k_proj_weight)
         value = F.linear(x3, self.v_proj_weight)
