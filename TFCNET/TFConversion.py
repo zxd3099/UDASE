@@ -26,7 +26,7 @@ class FT_conversion(nn.Module):
         y_c = torch.complex(y_r, y_i)
         y_conj = torch.conj(y_c)
         y = torch.cat([y_c, y_conj], dim=1)
-        return torch.fft.ifft(y, dim=1)
+        return torch.real(torch.fft.ifft(y, dim=1))
 
 
 class TF_conversion(nn.Module):
